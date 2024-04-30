@@ -134,3 +134,4 @@ C:\Users\marce\source\repos\SalesReport\SalesReport\obj\Debug\net8.0\refint\Sale
 C:\Users\marce\source\repos\SalesReport\SalesReport\obj\Debug\net8.0\SalesReport.pdb
 C:\Users\marce\source\repos\SalesReport\SalesReport\obj\Debug\net8.0\SalesReport.genruntimeconfig.cache
 C:\Users\marce\source\repos\SalesReport\SalesReport\obj\Debug\net8.0\ref\SalesReport.dll
+C:\Users\marce\source\repos\SalesReport\SalesReport\obj\Debug\net8.0\SalesReport.sourcelink.json
