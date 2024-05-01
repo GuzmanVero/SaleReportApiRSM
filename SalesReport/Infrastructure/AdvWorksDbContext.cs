@@ -1,18 +1,18 @@
 ﻿namespace SalesReport.Infrastructure
 {
-
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using SalesReport.Domain.Models;
     using System.Reflection;
 
-    public class AdvWorksDbContext : DbContext
+    public class AdvWorksDbContext : IdentityDbContext<ApplicationUser>
     {
         public AdvWorksDbContext()
         {
         }
 
         public AdvWorksDbContext(DbContextOptions<AdvWorksDbContext> options)
-            : base(options)
+        : base(options)
         {
         }
 
