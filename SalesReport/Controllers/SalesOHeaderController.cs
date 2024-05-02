@@ -4,6 +4,8 @@ using SalesReport.Domain.interfaces;
 
 namespace SalesReport.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class SalesOHeaderController : Controller
     {
         private readonly ISalesOHeaderService _service;

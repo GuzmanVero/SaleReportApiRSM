@@ -12,6 +12,7 @@
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public int Quantity { get; set; }
+        public int Orderqty { get; set; }
         public string ShippingAddress { get; set; }
         public string BillingAddress { get; set; }
     }

@@ -3,9 +3,10 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using SalesReport.Domain.Models;
+    using System.Data;
     using System.Reflection;
 
-    public class AdvWorksDbContext : IdentityDbContext<ApplicationUser>
+    public class AdvWorksDbContext : DbContext
     {
         public AdvWorksDbContext()
         {
@@ -31,6 +32,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

@@ -107,6 +107,7 @@
                 UnitPrice = x.UnitPrice,
                 TotalPrice = x.TotalPrice,
                 Quantity = x.Quantity,
+                Orderqty = x.Orderqty,
                 ShippingAddress = x.ShippingAddress,
                 BillingAddress = x.BillingAddress
             }).ToListAsync();

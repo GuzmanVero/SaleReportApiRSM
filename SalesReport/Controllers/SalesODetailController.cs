@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesReport.Application.Dtos;
 using SalesReport.Domain.interfaces;
@@ -8,6 +9,7 @@ namespace SalesReport.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class SalesODetailController : Controller
     {
         private readonly ISalesODetailService _service;
