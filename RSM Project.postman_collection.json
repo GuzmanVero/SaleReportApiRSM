@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "102b1ec9-3de2-4db9-8c1a-6d1da405e08e",
+		"name": "RSM Project",
+		"description": "All endpoints about api. Includes the sales report and the data obtained for each filter.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27052549"
+	},
+	"item": [
+		{
+			"name": "https://localhost:44377/api/Auth/Validar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Email\": \"RsmTest@test.com\",\r\n    \"Password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44377/api/Auth/Validar",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"api",
+						"Auth",
+						"Validar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/SalesODetail/GetAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJSc21UZXN0QHRlc3QuY29tIiwibmJmIjoxNzE0Njc4NTIyLCJleHAiOjE3MTQ2Nzk0MjIsImlhdCI6MTcxNDY3ODUyMn0.CSRWA1ZPyK3noC1ufjVWvpHBXw-RdJl5zV1EyfJ2gWU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/SalesODetail/GetAll",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"SalesODetail",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/SalesODetail/details/filters?Year=2012&Customer=Company&SalesPersonName=Tsvi",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJSc21UZXN0QHRlc3QuY29tIiwibmJmIjoxNzE0NjkzMzMxLCJleHAiOjE3MTQ2OTQyMzEsImlhdCI6MTcxNDY5MzMzMX0.6dMo5teuJDN35c-DHAZrE-GwUp9aOu4PwtDslO2X7Io",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Year",
+							"value": "2012",
+							"type": "text"
+						},
+						{
+							"key": "ProductName",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "Customer",
+							"value": "Clothing",
+							"type": "text"
+						},
+						{
+							"key": "SalesPersonName",
+							"value": "Tsvi Reiter",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:44377/SalesODetail/details/filters?Year=2012&Customer=Company&SalesPersonName=Tsvi",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"SalesODetail",
+						"details",
+						"filters"
+					],
+					"query": [
+						{
+							"key": "Year",
+							"value": "2012"
+						},
+						{
+							"key": "Customer",
+							"value": "Company"
+						},
+						{
+							"key": "SalesPersonName",
+							"value": "Tsvi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/SalesOHeader/GetAll/Years",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/SalesOHeader/GetAll/Years",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"SalesOHeader",
+						"GetAll",
+						"Years"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/ProductCategory/GetAll/ProductName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/ProductCategory/GetAll/ProductName",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"ProductCategory",
+						"GetAll",
+						"ProductName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/CustomerName/GetAll/customerName",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJSc21UZXN0QHRlc3QuY29tIiwibmJmIjoxNzE0NjkxMjE3LCJleHAiOjE3MTQ2OTIxMTcsImlhdCI6MTcxNDY5MTIxN30.6oNaPAhDbzMcs6OfUCIqbMaETjKb36MR8Rvk0xxPzjw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/CustomerName/GetAll/customerName",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"CustomerName",
+						"GetAll",
+						"customerName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/SalesPersonName/GetAll/salesPersonName",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJSc21UZXN0QHRlc3QuY29tIiwibmJmIjoxNzE0NjkxMjE3LCJleHAiOjE3MTQ2OTIxMTcsImlhdCI6MTcxNDY5MTIxN30.6oNaPAhDbzMcs6OfUCIqbMaETjKb36MR8Rvk0xxPzjw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/SalesPersonName/GetAll/salesPersonName",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"SalesPersonName",
+						"GetAll",
+						"salesPersonName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/SalesODetail/details/2012",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/SalesODetail/details/2012",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"SalesODetail",
+						"details",
+						"2012"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44377/SalesOHeader/vendor/filter?Name=jae&Year=2012",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44377/SalesOHeader/vendor/filter?Name=jae&Year=2012",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44377",
+					"path": [
+						"SalesOHeader",
+						"vendor",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "Name",
+							"value": "jae"
+						},
+						{
+							"key": "Year",
+							"value": "2012"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
