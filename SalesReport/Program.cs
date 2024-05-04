@@ -7,15 +7,23 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API SALES REPORT", Version = "v1" });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+    c.EnableAnnotations();
+});
 
 builder.Services.AddDbContext<AdvWorksDbContext>(options =>
 {
@@ -29,6 +37,10 @@ builder.Services.AddTransient<IProductCategoryRepository, ProductCategoryReposit
 builder.Services.AddTransient<IProductCategoryService, ProductCategoryService>();
 builder.Services.AddTransient<ISalesOHeaderRepository, SalesOHeaderRepository>();
 builder.Services.AddTransient<ISalesOHeaderService, SalesOHeaderService>();
+builder.Services.AddTransient<ISalesPersonNameRepository, SalesPersonNameRepository>();
+builder.Services.AddTransient<ISalesPersonNameService, SalesPersonNameService>();
+builder.Services.AddTransient<ICustomerNameRepository, CustomerNameRepository>();
+builder.Services.AddTransient<ICustomerNameService, CustomerNameService>();
 
 builder.Configuration.AddJsonFile("appsettings.json");
 var secretKey = builder.Configuration.GetSection("settings").GetSection("secretKey").ToString();
@@ -50,17 +62,38 @@ builder.Services.AddAuthentication(config => {
     };
 });
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:3357")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddControllers();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API SALES REPORT v1"));
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("MyCorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 

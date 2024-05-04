@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using SalesReport.Domain.Models;
 using System.Text;
+using SalesReport.Application.Dtos;
 namespace SalesReport.Controllers
 {
     [Route("api/[controller]")]
@@ -17,8 +18,18 @@ namespace SalesReport.Controllers
         {
             secretKey = config.GetSection("settings").GetSection("secretKey").ToString();
         }
-
+        /// <summary>
+        /// User validation method
+        /// </summary>
+        /// <param name="request">Email and password</param>
+        /// <returns>If validation ok, return token</returns>
+        /// <response code="200">User found</response>
+        /// <response code="404">User not found</response>
+        /// <response code="401">No authorization</response>
         [HttpPost("Validar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Nullable), StatusCodes.Status401Unauthorized)]
         public IActionResult Validar([FromBody] User request)
         {
 

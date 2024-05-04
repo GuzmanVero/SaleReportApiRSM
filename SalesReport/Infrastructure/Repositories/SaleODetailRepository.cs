@@ -76,6 +76,7 @@
                             UnitPrice = sd.UnitPrice,
                             TotalPrice = sd.LineTotal,
                             Quantity = sci.Quantity,
+                            //OrderQty = sd.OrderQty,
                             ShippingAddress = addr.AddressLine1,
                             BillingAddress = addr.AddressLine2
                         };
@@ -85,15 +86,15 @@
             }
             if (!string.IsNullOrEmpty(filter.SalesPersonName))
             {
-                query = query.Where(x => x.SalesPersonName == filter.SalesPersonName);
+                query = query.Where(x => x.SalesPersonName.Contains(filter.SalesPersonName));
             }
             if (!string.IsNullOrEmpty(filter.Customer))
             {
-                query = query.Where(x => x.ClientName == filter.Customer);
+                query = query.Where(x => x.ClientName.Contains(filter.Customer));
             }           
-            if (!string.IsNullOrEmpty(filter.ProductName))
+            if (!string.IsNullOrEmpty(filter.productCategoryName))
             {
-                query = query.Where(x => x.ProductName == filter.ProductName);
+                query = query.Where(x => x.ProductName == filter.productCategoryName);
             }
             var result = await query.Select(x => new SalesOrderDetailDto
             {
@@ -107,7 +108,7 @@
                 UnitPrice = x.UnitPrice,
                 TotalPrice = x.TotalPrice,
                 Quantity = x.Quantity,
-                Orderqty = x.Orderqty,
+                //OrderQty = x.OrderQty,
                 ShippingAddress = x.ShippingAddress,
                 BillingAddress = x.BillingAddress
             }).ToListAsync();

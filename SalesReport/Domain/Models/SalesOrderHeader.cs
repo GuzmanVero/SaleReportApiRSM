@@ -14,6 +14,7 @@ namespace SalesReport.Domain.Models
         public virtual Customer Customer { get; set; }
         public virtual Address ShippingAddress { get; set; }
         public virtual ICollection<SalesOrderDetail> SalesOrderDetails { get; set; }
+        public decimal TotalDue { get; set; }
 
     }
 }
