@@ -1,0 +1,102 @@
+﻿@model SalesReportUI.Models.SalesReport
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">
+        Sales Report
+    </h1>
+</div>
+<div class="card">
+    <div class="card-header">
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index" target="_blank">Generate report</a>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="DowloadPDF">Dowload PDF</a>
+    </div>
+    <div class="card-body">
+        Filters <br />   <br />
+        <div class="filters">
+            <select id="yearSelector" asp-for="SelectedYear" asp-items="@(new SelectList(Model.Years))">
+                <option value="">-- Select Year --</option>
+            </select>
+            <input type="text" id="employeeName" placeholder="Enter Employee Name" />
+            <input type="text" id="customerName" placeholder="Enter Customer Name" />
+            <button onclick="updateTable()">Search</button>
+        </div>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sales Order ID</th>
+                    <th>Order Date</th>
+                    <th>Ship Date</th>
+                    <th>Sales Person Name</th>
+                    <th>Client Name</th>
+                    <th>Product Name</th>
+                    <th>Product Category Name</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                    <th>Quantity</th>
+                    <th>ShippingAddress</th>
+                    <th></th>
+                </tr>
+            </thead> 
+            <tbody>
+                @foreach (var item in Model.SalesOrderDetails)
+                {
+                    <tr>
+                        <td>@item.SalesOrderID</td>
+                        <td>@item.OrderDate</td>
+                        <td>@item.ShipDate</td>
+                        <td>@item.SalesPersonName</td>
+                        <td>@item.ClientName</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.ProductCategoryName</td>
+                        <td>@item.UnitPrice</td>
+                        <td>@item.TotalPrice</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.ShippingAddress</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <script>
+            const apiBaseUrl = 'https://localhost:44377/';
+
+            function updateTable() {
+                const employee = document.getElementById('employeeName').value;
+                const customer = document.getElementById('customerName').value;
+                const yearSelector = document.getElementById('yearSelector');
+                const year = yearSelector ? yearSelector.value : '';
+
+                fetch(`${apiBaseUrl}SalesODetail/details/filters?Year=${year}&Customer=${customer}&SalesPersonName=${employee}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tbody = document.querySelector('.table tbody');
+                        tbody.innerHTML = '';
+
+                        data.forEach(item => {
+                            const row = `<tr>
+                                        <td>${item.salesOrderID}</td>
+                                        <td>${item.orderDate}</td>
+                                        <td>${item.shipDate}</td>
+                                        <td>${item.salesPersonName}</td>
+                                        <td>${item.clientName}</td>
+                                        <td>${item.productName}</td>
+                                        <td>${item.productCategoryName}</td>
+                                        <td>${item.unitPrice}</td>
+                                        <td>${item.totalPrice}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>${item.shippingAddress}</td>
+                                        </tr>`;
+                            tbody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data: ', error));
+            }
+
+        </script>
+    </div>
+</div>
+

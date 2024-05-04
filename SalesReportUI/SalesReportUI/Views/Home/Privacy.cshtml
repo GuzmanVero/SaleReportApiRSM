@@ -1,0 +1,73 @@
+﻿@model SalesReportUI.Models.SalesReport
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="text-center">
+    <h1 class="display-4">
+        Sales Report
+    </h1>
+</div>
+<div class="card">
+    <div class="card-header">
+        <a class="btn btn-primary" asp-controller="Home" asp-action="DowloadPDF">Dowload PDF</a>
+    </div>
+    <div class="card-body">
+        Filters <br />   <br />
+        <div class="filters">
+            <select id="yearSelector" asp-for="SelectedYear" asp-items="@(new SelectList(Model.Years))">
+                <option value="">-- Select Year --</option>
+            </select>
+            <input type="text" id="employeeName" placeholder="Enter Employee Name" />
+            <button onclick="updateTable()">Search</button>
+        </div>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name employee</th>
+                    <th>Order Date</th>
+                    <th>Total Due</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SalesPerson)
+                {
+                    <tr>
+                        <td>@item.SalesPersonName</td>
+                        <td>@item.OrderDate</td>
+                        <td>@item.Totaldue</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <script>
+            const apiBaseUrl = 'https://localhost:44377/';
+
+            function updateTable() {
+                const employee = document.getElementById('employeeName').value;
+                const yearSelector = document.getElementById('yearSelector');
+                const year = yearSelector ? yearSelector.value : '';
+
+                fetch(`${apiBaseUrl}SalesOHeader/vendor/filter?Name=${employee}&Year=${year}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tbody = document.querySelector('.table tbody');
+                        tbody.innerHTML = '';
+
+                        data.forEach(item => {
+                            const row = `<tr>
+                                         <td>${item.SalesPersonName}</td>
+                                         <td>${item.orderDate}</td>
+                                         <td>${item.Totaldue}</td>
+                                        </tr>`;
+                            tbody.innerHTML += row;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data: ', error));
+            }
+        </script>
+    </div>
+</div>
